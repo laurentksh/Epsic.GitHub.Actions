@@ -3,8 +3,6 @@ name: .NET
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
@@ -24,10 +22,8 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Publish
-      if: github.event == 'push'
       run: dotnet publish -c Release -o Build
     - name: Deploy
-      if: github.event == 'push' && success()
       uses: JamesIves/github-pages-deploy-action@4.0.0
       with:
         branch: gh-pages # The branch the action should deploy to.
